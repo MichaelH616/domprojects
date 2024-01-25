@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>DOM Projects</title>
+        <style>
+
+          body {
+            font-family: Arial;
+          }
+
+          .subscribe-button {
+            border: none;
+            background-color: black;
+            color: white;
+            padding: 10px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-bottom: 30px;
+          }
+
+          .is-subscribed {
+            background-color: rgb(240, 240, 240);
+            color: black;
+          }
+
+          .cost-input {
+            font-size: 15px;
+            padding: 10px;
+          }
+
+          .calculate-button {
+            background-color: green;
+            color: white;
+            padding: 12px 15px;
+            border: none;
+            font-size: 15px;
+            cursor: pointer;
+          }
+
+        </style>
+    </head>
+    <body>
+<!-- Youtube subscribe button that changes to subscribed when you click -->
+      
+      <p>YouTube Subscribe Button</p>
+      <button onclick="
+        subscribe();
+      " class="js-subscribe-button subscribe-button">Subscribe</button>
+<!-- Amazon calculator that adds $10 shipping if the order is under $40 -->
+      <p>Amazon Shipping Calculator</p>
+      <input placeholder="Cost of order" class="js-cost-input cost-input" onkeydown="
+        handleCostKeyDown(event);
+      ">
+      <button onclick="
+        calculateTotal();
+      " class="calculate-button">Calculate</button>
+      <p class="js-total-cost"></p>
+<!-- Displays whether you clicked heads or tails -->
+      <button onclick="document.querySelector('.js-choice').innerHTML = 'You chose heads';">Heads</button>
+      <button onclick="document.querySelector('.js-choice').innerHTML = 'You chose tails';">Tails</button>
+
+      <p class="js-choice"></p>
+
+    <!-- Will enter the name you put in the input box on a separate line below it. Will work when you press the enter key -->
+      <input placeholder="Name" class="js-input" onkeydown="
+      if (event.key === 'Enter') {
+        displayMessage();
+      }">
+      <button onclick="displayMessage()">Submit</button>
+
+      <p class='js-msg'></p>
+
+      <!-- Any text you put in the box will show just below it in real time  -->
+      <input placeholder="Text" class="jsInput" onkeyup="
+      const textElement = document.querySelector('.jsInput');
+      document.querySelector('.text-msg').innerHTML = textElement.value">
+      <p class="text-msg"></p>
+      
+        <script>
+          // function for name box
+          function displayMessage() {
+            const textName = document.querySelector('.js-input');
+            document.querySelector('.js-msg').innerHTML = `Your name is ${textName.value}`
+          }
+
+          // functions for amazon calculator
+          function handleCostKeyDown(event) {
+            if (event.key === 'Enter') {
+              calculateTotal();
+            }
+          }
+          // first convert the price to cents so it does not show multiple decimal points
+          function calculateTotal(){
+            const inputElement = document.querySelector('.js-cost-input');
+            let cost = Number(inputElement.value) * 100;
+
+            if(cost < 4000 ) {
+              cost += 1000;
+            }
+            document.querySelector('.js-total-cost').innerHTML = `$${cost / 100}`;
+          }
+          // function to change the subscribe button text 
+          function subscribe() {
+            const buttonElement = document.querySelector('.js-subscribe-button');
+
+            if (buttonElement.innerText === 'Subscribe') {
+            buttonElement.innerText = 'Subscribed';
+            buttonElement.classList.add('is-subscribed');
+            } else {
+              buttonElement.innerText = 'Subscribe';
+              buttonElement.classList.remove('is-subscribed');
+            }
+          }
+        </script>
+    </body>
+    
+</html>
+
